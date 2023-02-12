@@ -2,6 +2,7 @@ import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { UsersService } from 'src/users/users.service';
 import * as bcrypt from 'bcrypt';
 import PostgresErrorCode from 'src/database/postgresErrorCodes.enum';
+import RegisterDto from './dto/register.dto';
 
 @Injectable()
 export class AuthenticationService {
@@ -36,7 +37,7 @@ export class AuthenticationService {
     }
 
     private async verifyPassword(plainTextPassword: string, hashedPassword: string) {
-        const isPasswordMatching = await bcrypt.compare(hashedPassword, plainTextPassword);
+        const isPasswordMatching = await bcrypt.compare(plainTextPassword, hashedPassword);
         if (!isPasswordMatching) {
             throw new HttpException('Wrong credentials provided', HttpStatus.BAD_REQUEST);
         }
