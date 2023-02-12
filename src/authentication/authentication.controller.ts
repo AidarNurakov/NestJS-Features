@@ -1,8 +1,10 @@
 import { Controller } from '@nestjs/common';
-import { Post, Body, HttpCode, Req, UseGuards } from '@nestjs/common/decorators';
+import { Post, Get, Body, HttpCode, Req, UseGuards, Res } from '@nestjs/common/decorators';
+import { Response } from 'express';
 import { AuthenticationService } from './authentication.service';
 import RegisterDto from './dto/register.dto';
-import { LocalAuthenticationGuard } from './localAuthentication.guard';
+import JwtAuthenticationGuard from './guards/jwtAuthentication.guard';
+import { LocalAuthenticationGuard } from './guards/localAuthentication.guard';
 import RequestWithUser from './requestWithUset.interface';
 
 @Controller('authentication')
@@ -17,7 +19,24 @@ export class AuthenticationController {
     @HttpCode(200)
     @UseGuards(LocalAuthenticationGuard)
     @Post('log-in')
-    async logIn(@Req() request: RequestWithUser) {
+    async logIn(@Req() request: RequestWithUser, @Res() response: Response) {
+        const { user } = request
+        const cookie = this.authenticationService.getCookieWithJwtToken(user.id);
+        response.setHeader('Set-Cookie', cookie);
+        user.password = undefined;
+        return response.send(user);
+    }
+
+    @UseGuards(JwtAuthenticationGuard)
+    @Post('log-out')
+    async logOut(@Res() response: Response) {
+        response.setHeader('Set-Cookie', this.authenticationService.getCookieForLogOut());
+        return response.sendStatus(200);
+    }
+
+    @UseGuards(JwtAuthenticationGuard)
+    @Get()
+    async authenticate(@Req() request: RequestWithUser) {
         const user = request.user;
         user.password = undefined;
         return user;
