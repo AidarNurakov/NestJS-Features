@@ -6,6 +6,7 @@ import RegisterDto from './dto/register.dto';
 import { JwtService } from '@nestjs/jwt/dist';
 import { ConfigService } from '@nestjs/config';
 import TokenPayload from './tokenPayload.interface';
+import { BadRequestException } from '@nestjs/common/exceptions';
 
 @Injectable()
 export class AuthenticationService {
