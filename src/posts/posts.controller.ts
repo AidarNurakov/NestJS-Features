@@ -5,8 +5,11 @@ import UpdatePostDto from './dto/updatePost.dto';
 import { UseGuards } from '@nestjs/common/decorators/core/use-guards.decorator';
 import JwtAuthenticationGuard from 'src/authentication/guards/jwtAuthentication.guard';
 import FindOneParams from 'src/utils/findOneParams';
+import { UseInterceptors } from '@nestjs/common/decorators/core/use-interceptors.decorator';
+import { ExcludeNullInterceptor } from 'src/utils/excludeNull.interceptor';
 
 @Controller('posts')
+@UseInterceptors(ExcludeNullInterceptor)
 export default class PostsController {
   constructor(
     private readonly postsService: PostsService
