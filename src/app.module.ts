@@ -6,6 +6,7 @@ import { DatabaseModule } from "./database/database.module";
 import { UsersModule } from './users/users.module';
 import { AuthenticationModule } from './authentication/authentication.module';
 import { APP_INTERCEPTOR } from '@nestjs/core';
+import { CategoriesModule } from './categories/categories.module';
 
 @Module({
   imports: [
@@ -25,7 +26,8 @@ import { APP_INTERCEPTOR } from '@nestjs/core';
     DatabaseModule,
     PostsModule,
     UsersModule,
-    AuthenticationModule
+    AuthenticationModule,
+    CategoriesModule
   ],
   controllers: [],
   providers: [],
