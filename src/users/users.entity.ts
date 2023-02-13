@@ -4,7 +4,7 @@ import { Column, Entity, JoinColumn, OneToMany, OneToOne, PrimaryGeneratedColumn
 import Address from "./address.entity";
 
 @Entity()
-class User {
+export default class User {
     @PrimaryGeneratedColumn()
     public id: number;
 
@@ -28,5 +28,3 @@ class User {
     @OneToMany(() => Post, (post: Post) => post.author)
     public posts: Post[]
 }
-
-export default User;

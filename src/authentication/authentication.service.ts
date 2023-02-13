@@ -1,12 +1,11 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
-import { UsersService } from 'src/users/users.service';
 import * as bcrypt from 'bcrypt';
-import PostgresErrorCode from 'src/database/postgresErrorCodes.enum';
 import RegisterDto from './dto/register.dto';
 import { JwtService } from '@nestjs/jwt/dist';
 import { ConfigService } from '@nestjs/config';
 import TokenPayload from './tokenPayload.interface';
-import { BadRequestException } from '@nestjs/common/exceptions';
+import { UsersService } from 'src/users/users.service';
+import PostgresErrorCode from 'src/database/postgresErrorCodes.enum';
 
 @Injectable()
 export class AuthenticationService {
