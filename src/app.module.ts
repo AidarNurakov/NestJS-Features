@@ -7,6 +7,7 @@ import { UsersModule } from './users/users.module';
 import { AuthenticationModule } from './authentication/authentication.module';
 import { CategoriesModule } from './categories/categories.module';
 import { FilesModule } from './files/files.module';
+import { SearchModule } from './search/search.module';
 
 @Module({
   imports: [
@@ -32,7 +33,8 @@ import { FilesModule } from './files/files.module';
     UsersModule,
     AuthenticationModule,
     CategoriesModule,
-    FilesModule
+    FilesModule,
+    SearchModule
   ],
   controllers: [],
   providers: [],
